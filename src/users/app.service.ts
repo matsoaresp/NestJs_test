@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../interfaces/app.userinterface';
+import { User } from './interfaces/app.userinterface';
 
 @Injectable()
 export class AppService {
