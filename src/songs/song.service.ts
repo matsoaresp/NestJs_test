@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Song } from './interfaces/app.songinterface';
+import { Song } from './interfaces/song.songinterface';
 
 @Injectable()
 export class SongService {

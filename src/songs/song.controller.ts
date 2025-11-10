@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Param } from '@nestjs/common';
-import type { Song } from '../songs/interfaces/app.songinterface';
-import { SongService } from './app.service';
+import type { Song } from './interfaces/song.songinterface';
+import { SongService } from './song.service';
 
 @Controller('songs')
 export class SongController {
@@ -14,14 +14,14 @@ export class SongController {
   @Post('create')
   createUser(@Body() newSong: Song) {
     this.songService.createSong(newSong);
-    return { message: 'Usuario criado com sucesso! ' };
+    return { message: 'Música criada com sucesso! ' };
   }
 
   @Get(':id')
   getSongById(@Param('id') id: number) {
     const song = this.songService.getSongById(+id);
     if (!song) {
-      return { message: 'User not found' };
+      return { message: 'Música nao encontrada' };
     } else {
       return song;
     }
@@ -30,6 +30,6 @@ export class SongController {
   @Post('delete/:id')
   deleteUser(@Param('id') id: number) {
     this.songService.deleteSongById(id);
-    return { message: 'User deleted succesfully' };
+    return { message: 'Song deleted succesfully' };
   }
 }
