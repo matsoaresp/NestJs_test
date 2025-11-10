@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AppService } from '../users/app.service';
-import type { User } from '../interfaces/app.userinterface';
+import type { User } from './interfaces/app.userinterface';
 
 @Controller('users')
 export class AppController {
