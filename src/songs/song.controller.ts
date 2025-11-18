@@ -20,16 +20,12 @@ export class SongController {
   @Get(':id')
   getSongById(@Param('id') id: number) {
     const song = this.songService.getSongById(+id);
-    if (!song) {
-      return { message: 'Música nao encontrada' };
-    } else {
-      return song;
-    }
+    return song;
   }
 
   @Post('delete/:id')
   deleteUser(@Param('id') id: number) {
-    this.songService.deleteSongById(id);
+    this.songService.deleteSongById(+id);
     return { message: 'Song deleted succesfully' };
   }
 }

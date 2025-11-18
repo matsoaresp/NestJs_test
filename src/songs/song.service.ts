@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Song } from './interfaces/song.songinterface';
 
 @Injectable()
@@ -6,6 +6,9 @@ export class SongService {
   private readonly songs: Song[] = [];
 
   getSongs(): Song[] {
+    if (!this.songs) {
+      throw new NotFoundException('Erro ao encontrar músicas!');
+    }
     return this.songs;
   }
 
@@ -14,13 +17,26 @@ export class SongService {
   }
 
   getSongById(id: number): Song | undefined {
-    return this.songs.find((song) => song.id === id);
+    const songs = this.songs.find((song) => song.id === id);
+    if (!songs) {
+      throw new NotFoundException(`Musica com ID: ${id}, não encontrado`);
+    }
+    return songs;
   }
 
-  deleteSongById(id: number): void {
-    const index = this.songs.findIndex((song) => song.id == id);
-    if (index !== -1) {
+  deleteSongById(id: number): Song | undefined {
+    console.log('ID passado:', id);
+    console.log('Songs atuais:', this.songs);
+
+    const index = this.songs.findIndex((song) => song.id === id);
+
+    console.log("Index encontrado", index)
+    
+    if (index === -1) {
+      throw new NotFoundException(`Música com ID: ${id}, não encontrado`);
+    } 
       this.songs.splice(index, 1);
-    }
+      return;
+    
   }
 }
