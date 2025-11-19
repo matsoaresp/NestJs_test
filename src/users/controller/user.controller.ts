@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { AppService } from '../users/app.service';
-import type { User } from './interfaces/app.userinterface';
+import { UserService } from '../service/user.service';
+import type { User } from '../interfaces/app.userinterface';
 
 @Controller('users')
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class UserController {
+  constructor(private readonly appService: UserService) {}
 
   @Get()
   getHello(): string {
