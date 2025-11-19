@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import  {CreateDto} from '../dto/CreateUser.dto'
 import type { User } from '../interfaces/app.userinterface';
@@ -18,9 +18,14 @@ export class UserController {
   }
 
   @Post('create')
-  createUser(@Body() createdUserDto: CreateDto) {
+  async createUser(@Body() createdUserDto: CreateDto) {
    const {...createUSerDatails} =  createdUserDto  
-   this.userService.createUser(createUSerDatails)
+   try{
+    await this.userService.createUser(createUSerDatails)
+    return {message: "Usuario criado com sucesso!"};
+   }catch (error){
+    throw new NotFoundException('Erro ao cadastrar usúario')
+   }
   }
 
   @Get(':id')
