@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../interfaces/app.userinterface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from '../entities/User';
+import { CreateUserParams } from '../utils/types';
 
 @Injectable()
 export class UserService {
   private readonly users: User[] = [];
+  
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ){}
 
   getHello(): string {
     return 'Seja bem vindo ao NestJS!';
@@ -13,8 +21,10 @@ export class UserService {
     return this.users;
   }
 
-  createUser(user: User): void {
-    this.users.push(user);
+  createUser(createUserDetails: CreateUserParams){
+    const newUser = this.userRepository.create({...createUserDetails, createdAt: new Date(),
+    })
+    return this.userRepository.save(newUser);
   }
 
   getUserById(id: number): User | undefined {
