@@ -21,10 +21,11 @@ export class UserService {
     return this.users;
   }
 
-  createUser(createUserDetails: CreateUserParams){
+  async createUser(createUserDetails: CreateUserParams){
     const newUser = this.userRepository.create({...createUserDetails, createdAt: new Date(),
-    })
-    return this.userRepository.save(newUser);
+    });
+    await this.userRepository.save(newUser);
+    
   }
 
   getUserById(id: number): User | undefined {
