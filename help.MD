@@ -1,10 +1,25 @@
-# Comando para testar no Node 
 
-fetch('http://localhost:3000/users/create', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ id: 1, name: 'John Doe', email: 'john.doe@example.com' })
-}).then(r => r.json()).then(console.log)
 
-# Comando para rodar o codigo 
-npm run start
+# Rodar o codigo 
+
+```bash
+# development
+$ npm run start
+```
+
+
+# Comandos para ver as tabelas pelo Prompt de Comando
+
+```bash
+# Comando para se conectar ao banco Postgres
+$ "C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres
+
+# Conectar ao bando nestjs
+$ \c nestjs
+
+# Listar tabelas
+$ \dt
+
+# Ver os registros da tabela users
+$ SELECT * FROM users;
+```
