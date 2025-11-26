@@ -6,7 +6,6 @@ import { CreateUserParams } from '../utils/types';
 
 @Injectable()
 export class UserService {
-  private readonly users: User[] = [];
   
   constructor(
     @InjectRepository(User)
@@ -17,8 +16,8 @@ export class UserService {
     return 'Seja bem vindo ao NestJS!';
   }
 
-  getUsers(): User[] {
-    return this.users;
+  getUsers() {
+    return this.userRepository.find();
   }
 
   async createUser(createUserDetails: CreateUserParams){
@@ -28,14 +27,11 @@ export class UserService {
     
   }
 
-  getUserById(id: number): User | undefined {
-    return this.users.find((user) => user.id === id);
+   async getUserById(id: number) {
+    return this.userRepository.findOne({ where: { id } });
   }
 
   deleteUsersById(id: number): void {
-    const index = this.users.findIndex((user) => user.id === id);
-    if (index !== -1) {
-      this.users.splice(index, 1);
-    }
+    this.userRepository.delete({id});
   }
 }
